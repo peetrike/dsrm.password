@@ -1,6 +1,6 @@
 ﻿function Get-DsrmUser {
     # .EXTERNALHELP Module-help.xml
-    [OutputType("Microsoft.ActiveDirectory.Management.ADUser")]
+    [OutputType('Microsoft.ActiveDirectory.Management.ADUser')]
     [CmdletBinding()]
     param (
             [string]
