@@ -9,12 +9,16 @@
             [securestring]
         $Password,
             [string]
-            # computer name for witch to change password
         $ComputerName = $env:COMPUTERNAME,
             [string]
-            # prefix for user SamAccountName
         $Prefix = 'DSRM'
     )
+
+    $DC = Get-ADDomainController -Identity $env:COMPUTERNAME
+    if ($DC.IsReadOnly) {
+        Write-Error -Message 'Not supported on RODC'
+        return
+    }
 
     $UserName = '{0}-{1}' -f $Prefix, $ComputerName
     $DsrmUser = Get-ADUser -Identity $UserName -ErrorAction Stop
