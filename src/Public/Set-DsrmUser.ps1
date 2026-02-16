@@ -1,16 +1,13 @@
 ﻿function Set-DsrmUser {
     # .EXTERNALHELP Module-help.xml
-    #[Alias('alias')]
     [OutputType([void])]
     [CmdletBinding(
         SupportsShouldProcess
     )]
     param (
             [string]
-            # computer name for witch to create user
         $ComputerName = $env:COMPUTERNAME,
             [string]
-            # prefix for user SamAccountName
         $Prefix = 'DSRM'
     )
 
@@ -19,15 +16,15 @@
         [CmdletBinding()]
         param (
                 [int]
-            $Length = 8,
+            $Length = 64,
                 [char[]]
-            $Number = (48..57 | ForEach-Object { [char]$_ }),
+            $Number = ('0123456789'.ToCharArray()),
                 [char[]]
-            $Letter = (97..122 | ForEach-Object { [char]$_ }),
+            $Letter = ('abcdefghijklmnopqrstuvwxyz'.ToCharArray()),
                 [char[]]
-            $Capital = (65..90 | ForEach-Object { [char]$_ }),
+            $Capital = ('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.ToCharArray()),
                 [char[]]
-            $Symbol = (33, 35, 36, 37, 40, 41, 43, 45, 46, 58, 64 | ForEach-Object { [char]$_ })
+            $Symbol = ('!#%+@:=?*'.ToCharArray())
         )
 
         $table = @{
@@ -39,11 +36,10 @@
         $AllSymbol = $Number + $Letter + $Capital + $Symbol
 
         -join @(
-            foreach ($key in $table.Keys | Get-Random -Count 4) { Get-Random -InputObject $table.$key }
-
             for ($i = 5; $i -le $Length; $i++) {
                 Get-Random -InputObject $AllSymbol
             }
+            foreach ($key in $table.Keys | Get-Random -Count 4) { Get-Random -InputObject $table.$key }
         )
     }
 
@@ -57,11 +53,12 @@
     try {
         $DsrmUser = Get-ADUser -Identity $UserName -ErrorAction Stop
     } catch {
-        $RandomString = Get-RandomString -Length 64
+        Write-Verbose -Message ('Creating user: {0}' -f $UserName)
+        $Password = Get-RandomString | ConvertTo-SecureString -AsPlainText -Force
         $newADUserSplat = @{
             Name            = $UserName
             Description     = 'DSRM password automation account'
-            AccountPassword = ConvertTo-SecureString -String $RandomString -AsPlainText -Force
+            AccountPassword = $Password
             PassThru        = $true
         }
         $DsrmUser = New-ADUser @newADUserSplat
@@ -69,14 +66,13 @@
 
     if ($PSCmdlet.ShouldProcess($DsrmUser, 'Set user properties')) {
         $setADUserSplat = @{
-            Identity               = $DsrmUser
             Enabled                = $false
             SmartcardLogonRequired = $false
             AccountNotDelegated    = $true
             CannotChangePassword   = $true
             PasswordNeverExpires   = $true
         }
-        Set-ADUser @setADUserSplat -Confirm:$false
+        Set-ADUser -Identity $DsrmUser @setADUserSplat -Confirm:$false
         Clear-ADAccountExpiration -Identity $DsrmUser -Confirm:$false
 
         $DomainObject = [DirectoryServices.ActiveDirectory.Domain]::GetComputerDomain()
@@ -91,11 +87,12 @@
         if ($UserGroupList.Sid -like $DomainGuestsSid) {
             Write-Verbose -Message 'User already in Domain Guests'
         } else {
-            Add-ADGroupMember -Identity ('{0}-514' -f $DomainSid) -Members $DsrmUser -Confirm:$false
+            Add-ADGroupMember -Identity $DomainGuestsSid -Members $DsrmUser -Confirm:$false
         }
         Set-ADUser -Identity $DsrmUser -Replace @{ primaryGroupID = 514 } -Confirm:$false
+            # remove user from Domain Users
         Remove-ADGroupMember -Identity ('{0}-513' -f $DomainSid) -Members $DsrmUser -Confirm:$false
-
+            # Add user to DENIED RODC Password Replication Group
         Add-ADGroupMember -Identity ('{0}-572' -f $DomainSid) -Members $DsrmUser -Confirm:$false
     }
 }
