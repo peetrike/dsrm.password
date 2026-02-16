@@ -8,15 +8,44 @@ Module to manage DSRM passwords
 
 # LONG DESCRIPTION
 
-{{ Long Description Placeholder }}
+This module helps to manage DSRM passwords.
 
-## Optional Subtopics
+DSRM passwords are synchronized from special user accounts.
+Every DC gets its own user account.
+The account name is combined from prefix and computer NetBIOS name.
+The created DSRM accounts are by default added to
+_DENIED RODC Password Replication Group_.
+When the DSRM account is for RODC, that account must be removed from the group.
 
-{{ Optional Subtopic Placeholder }}
+The passwords for DSRM Accounts can be updated using `Set-DsrmPassword` function
+or manually.
+Password synchronization is performed by `Sync-DsrmPassword` function.
+
+When syncing DSRM passwords on RODC-s, ensure that DSRM account passwords are
+replicated to desired RODCs.
+That needs Password Replication Policy to be modified accordingly.
 
 # EXAMPLES
 
-{{ Code or descriptive examples of how to leverage the functions described. }}
+```powershell
+Set-DsrmUser -ComputerName myRODC
+```
+
+This example creates DSRM account for RODC computer.
+
+```powershell
+$Password = Read-Host -AsSecureString -Prompt 'RODC password'
+Set-DsrmPassword -ComputerName myRODC -Password $Password
+```
+
+This example asks password interactively and then sets the password to DSRM
+account for RODC computer.
+
+```powershell
+Sync-DsrmPassword
+```
+
+This example synchronizes local DSRM password from DSRM account.
 
 # NOTE
 
