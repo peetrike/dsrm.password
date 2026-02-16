@@ -5,37 +5,39 @@ online version:
 schema: 2.0.0
 ---
 
-# Set-DsrmUser
+# Set-DsrmPassword
 
 ## SYNOPSIS
 
-Prepares DSRM password sync account for specified DC
+Changes DSRM account password
 
 ## SYNTAX
 
 ```
-Set-DsrmUser [[-ComputerName] <String>] [[-Prefix] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-DsrmPassword [-Password] <SecureString> [[-ComputerName] <String>] [[-Prefix] <String>] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+This function changes DSRM account password to specified password.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-Set-DsrmUser
+$Password = Read-Host -AsSecureString -prompt 'Enter Password'
+Set-DsrmPassword -Password $Password
 ```
 
-{{ Add example description here }}
+Sets DSRM account password to entered one
 
 ## PARAMETERS
 
 ### -ComputerName
 
-DC name for witch to prepare user
+Specifies the computer to which the DSRM account password should be set.
 
 ```yaml
 Type: String
@@ -43,8 +45,8 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 0
-Default value: None
+Position: 1
+Default value: local computer
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -65,9 +67,25 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Password
+
+Specifies password to set to DSRM account
+
+```yaml
+Type: SecureString
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Prefix
 
-Prefix for user SamAccountName
+DSRM account name prefix
 
 ```yaml
 Type: String
@@ -75,7 +93,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 1
+Position: 2
 Default value: DSRM
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -107,12 +125,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### None
+### System.Boolean
+
+The success status of password set
 
 ## NOTES
 
 ## RELATED LINKS
 
-[Get-DsrmUser](Get-DsrmUser.md)
+[Set-DsrmUser](Set-DsrmUser.md)
 
-[Set-DsrmPassword](Set-DsrmPassword.md)
+[Sync-DsrmPassword](Sync-DsrmPassword.md)

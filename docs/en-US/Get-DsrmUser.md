@@ -19,7 +19,7 @@ Get-DsrmUser [[-ComputerName] <String>] [[-Prefix] <String>] [<CommonParameters>
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+This function finds DSRM account for specified computer.
 
 ## EXAMPLES
 
@@ -29,7 +29,7 @@ Get-DsrmUser [[-ComputerName] <String>] [[-Prefix] <String>] [<CommonParameters>
 Get-DsrmUser
 ```
 
-{{ Add example description here }}
+This example returns DSRM user account for local computer
 
 ## PARAMETERS
 
@@ -44,14 +44,14 @@ Aliases:
 
 Required: False
 Position: 0
-Default value: current computer
+Default value: local computer
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -Prefix
 
-User account name prefix
+DSRM account name prefix
 
 ```yaml
 Type: String
@@ -76,6 +76,13 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### Microsoft.ActiveDirectory.Management.ADUser
 
+The DSRM account for specified computer
+
 ## NOTES
 
+The returned DSRM account is used for DSRM password synchronization on specified
+computer.
+
 ## RELATED LINKS
+
+[Set-DsrmUser](Set-DsrmUser.md)

@@ -5,49 +5,37 @@ online version:
 schema: 2.0.0
 ---
 
-# Set-DsrmUser
+# Sync-DsrmPassword
 
 ## SYNOPSIS
 
-Prepares DSRM password sync account for specified DC
+Synchronises DSRM password from DSRM account
 
 ## SYNTAX
 
 ```
-Set-DsrmUser [[-ComputerName] <String>] [[-Prefix] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Sync-DsrmPassword [[-Prefix] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-{{ Fill in the Description }}
+This function takes password from DSRM account and uses it as DSRM password for 
+local computer.
+
+The DSRM account name is formed from prefix and computer NetBIOS name
+(contents of **COMPUTERNAME** environment variable).
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-Set-DsrmUser
+Sync-DsrmPassword
 ```
 
-{{ Add example description here }}
+This example synchronizes local DSRM password from DSRM account
 
 ## PARAMETERS
-
-### -ComputerName
-
-DC name for witch to prepare user
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 0
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
 
 ### -Confirm
 
@@ -67,7 +55,7 @@ Accept wildcard characters: False
 
 ### -Prefix
 
-Prefix for user SamAccountName
+DSRM Account name prefix
 
 ```yaml
 Type: String
@@ -75,7 +63,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 1
+Position: 0
 Default value: DSRM
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -107,12 +95,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### None
+### System.Boolean
+
+Password sync status
 
 ## NOTES
 
 ## RELATED LINKS
 
-[Get-DsrmUser](Get-DsrmUser.md)
-
 [Set-DsrmPassword](Set-DsrmPassword.md)
+
+[Set-DsrmUser](Set-DsrmUser.md)

@@ -14,6 +14,12 @@ Module to manage DSRM passwords
 ### [Get-DsrmUser](Get-DsrmUser.md)
 Returns DSRM password sync account for specified DC
 
+### [Set-DsrmPassword](Set-DsrmPassword.md)
+Changes DSRM account password
+
 ### [Set-DsrmUser](Set-DsrmUser.md)
 Prepares DSRM password sync account for specified DC
+
+### [Sync-DsrmPassword](Sync-DsrmPassword.md)
+Synchronises DSRM password from DSRM account
 
