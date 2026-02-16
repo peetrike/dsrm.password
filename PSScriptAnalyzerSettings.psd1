@@ -121,8 +121,8 @@
             # https://learn.microsoft.com/powershell/utility-modules/psscriptanalyzer/rules/UseCompatibleCommands
             Enable         = $true
             TargetProfiles = @(
-                'win-8_x64_6.2.9200.0_3.0_x64_4.0.30319.42000_framework' # Server 2012
-                'win-8_x64_6.3.9600.0_4.0_x64_4.0.30319.42000_framework' # Server 2012 R2
+                #'win-8_x64_6.2.9200.0_3.0_x64_4.0.30319.42000_framework' # Server 2012
+                #'win-8_x64_6.3.9600.0_4.0_x64_4.0.30319.42000_framework' # Server 2012 R2
                 'win-8_x64_10.0.14393.0_5.1.14393.2791_x64_4.0.30319.42000_framework' # Server 2016
                 'win-8_x64_10.0.17763.0_5.1.17763.316_x64_4.0.30319.42000_framework' # Server 2019
                 'win-48_x64_10.0.17763.0_5.1.17763.316_x64_4.0.30319.42000_framework' # Win10
@@ -153,15 +153,11 @@
             TargetProfiles = @(
                 #'win-8_x64_6.2.9200.0_3.0_x64_4.0.30319.42000_framework' # Server 2012
                 #'win-8_x64_6.3.9600.0_4.0_x64_4.0.30319.42000_framework' # Server 2012 R2
-                #'win-8_x64_10.0.14393.0_5.1.14393.2791_x64_4.0.30319.42000_framework' # Server 2016
-                #'win-8_x64_10.0.17763.0_5.1.17763.316_x64_4.0.30319.42000_framework' # Server 2019
+                'win-8_x64_10.0.14393.0_5.1.14393.2791_x64_4.0.30319.42000_framework' # Server 2016
+                'win-8_x64_10.0.17763.0_5.1.17763.316_x64_4.0.30319.42000_framework' # Server 2019
                 'win-48_x64_10.0.17763.0_5.1.17763.316_x64_4.0.30319.42000_framework' # Win10
-                #'win-8_x64_10.0.14393.0_6.2.4_x64_4.0.30319.42000_core' # Server 2016 PS Core
-                #'win-8_x64_10.0.17763.0_6.2.4_x64_4.0.30319.42000_core' # Server 2019 PS Core
-                #'win-4_x64_10.0.18362.0_6.2.4_x64_4.0.30319.42000_core' # Win10 PS Core
-                #'ubuntu_x64_18.04_6.2.4_x64_4.0.30319.42000_core'
-                #'win-8_x64_10.0.14393.0_7.0.0_x64_3.1.2_core' # Server 2016 PS 7
-                #'win-8_x64_10.0.17763.0_7.0.0_x64_3.1.2_core' # Server 2019 PS 7
+                'win-8_x64_10.0.14393.0_7.0.0_x64_3.1.2_core' # Server 2016 PS 7
+                'win-8_x64_10.0.17763.0_7.0.0_x64_3.1.2_core' # Server 2019 PS 7
                 'win-4_x64_10.0.18362.0_7.0.0_x64_3.1.2_core' # Win10 PS 7
                 #'ubuntu_x64_18.04_7.0.0_x64_3.1.2_core'
             )
