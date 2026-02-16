@@ -4,10 +4,8 @@
     [CmdletBinding()]
     param (
             [string]
-            # computer name for witch to create user
         $ComputerName = $env:COMPUTERNAME,
             [string]
-            # prefix for user SamAccountName
         $Prefix = 'DSRM'
     )
 
