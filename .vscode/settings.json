@@ -1,4 +1,4 @@
-﻿{
+{
   "files.associations": {
     "*.ps1xml": "xml"     // PowerShell format files
   },
@@ -30,5 +30,9 @@
       "systemId": "https://raw.githubusercontent.com/PowerShell/PowerShell/master/src/Schemas/Types.xsd",
       "pattern": "**/*.Types.ps1xml"
     }
+  ],
+  "cSpell.words": [
+    "DSRM"
+    "RODC"
   ]
 }
