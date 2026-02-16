@@ -43,8 +43,8 @@
         )
     }
 
-    $DC = Get-ADDomainController -Identity $ComputerName
-    if ($dc.IsReadOnly) {
+    $DC = Get-ADDomainController -Identity $env:COMPUTERNAME
+    if ($DC.IsReadOnly) {
         Write-Error -Message 'Not supported on RODC'
         return
     }
