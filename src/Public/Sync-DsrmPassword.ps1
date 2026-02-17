@@ -10,6 +10,8 @@
     )
 
     $UserName = '{0}-{1}' -f $Prefix, $env:COMPUTERNAME
+    $DsrmUser = Get-ADUser -Identity $UserName -ErrorAction Stop
+
     if ($PSCmdlet.ShouldProcess($env:COMPUTERNAME, 'Sync DSRM Password')) {
         $result = ntdsutil.exe 'set dsrm password' "sync from domain account $UserName" q q
         Write-Verbose -Message ("{0}`n{1}" -f $result[1], $result[2])
