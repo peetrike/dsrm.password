@@ -21,9 +21,6 @@ The passwords for DSRM Accounts can be updated using `Set-DsrmPassword` function
 or manually.
 Password synchronization is performed by `Sync-DsrmPassword` function.
 
-When syncing DSRM passwords on RODC-s, ensure that DSRM account passwords are
-replicated to desired RODCs.
-That needs Password Replication Policy to be modified accordingly.
 
 # EXAMPLES
 
@@ -49,7 +46,9 @@ This example synchronizes local DSRM password from DSRM account.
 
 # NOTE
 
-{{ Note Placeholder - Additional information that a user needs to know.}}
+When syncing DSRM passwords on RODC-s, ensure that DSRM account passwords are
+replicated to desired RODCs.
+That needs Password Replication Policy to be modified accordingly.
 
 # TROUBLESHOOTING NOTE
 
@@ -59,7 +58,7 @@ This example synchronizes local DSRM password from DSRM account.
 
 # SEE ALSO
 
-{{ See also placeholder }}
+[DS Restore Mode Password Maintenance](https://techcommunity.microsoft.com/blog/askds/ds-restore-mode-password-maintenance/396102)
 
 {{ You can also list related articles, blogs, and video URLs. }}
 
