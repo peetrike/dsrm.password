@@ -1,6 +1,6 @@
 ﻿@{
     RootModule        = 'dsrm.password.psm1'
-    ModuleVersion     = '0.0.1'
+    ModuleVersion     = '0.0.2'
 
     GUID              = 'f77e3616-8dab-4a39-919b-26247a6604bb'
 

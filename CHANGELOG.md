@@ -15,7 +15,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Removed
 
-## [0.0.1] 2026-02-11
+## [0.0.2] 2026-02-17
+
+### Changed
+
+- Sync-DsrmPassword: check user existence before trying to sync
+
+## [0.0.1] 2026-02-17
 
 ### Added
 
