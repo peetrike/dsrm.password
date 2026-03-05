@@ -92,7 +92,13 @@
         Set-ADUser -Identity $DsrmUser -Replace @{ primaryGroupID = 514 } -Confirm:$false
             # remove user from Domain Users
         Remove-ADGroupMember -Identity ('{0}-513' -f $DomainSid) -Members $DsrmUser -Confirm:$false
-            # Add user to DENIED RODC Password Replication Group
-        Add-ADGroupMember -Identity ('{0}-572' -f $DomainSid) -Members $DsrmUser -Confirm:$false
+
+        if ($ComputerName -ne $env:COMPUTERNAME) {
+            $DC = Get-ADDomainController -Identity $ComputerName
+        }
+        if (-not $DC.IsReadOnly) {
+                # Add user to DENIED RODC Password Replication Group
+            Add-ADGroupMember -Identity ('{0}-572' -f $DomainSid) -Members $DsrmUser -Confirm:$false
+        }
     }
 }
