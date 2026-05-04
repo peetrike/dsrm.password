@@ -28,6 +28,7 @@
 
             # get the resulting event
         Start-Sleep -Seconds 3
+        Write-Verbose 'Checking password change event (4724)'
         $query = @(
             'System[(EventID = 4724) and TimeCreated[timediff(@SystemTime) <= {0}]]' -f 60000
             'EventData[Data[@Name="TargetUserName"] = "{0}"]' -f $UserName

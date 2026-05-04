@@ -18,13 +18,19 @@
 
             # get the resulting event
         Start-Sleep -Seconds 3
+        Write-Verbose 'Checking password sync event (4794)'
         $query = @(
             'System[(EventID = 4794) and TimeCreated[timediff(@SystemTime) <= {0}]]' -f 60000
             'EventData[Data[@Name="Workstation"] = "{0}"]' -f $env:COMPUTERNAME
         ) -join ' and '
         $xPathQuery = '*[{0}]' -f $query
         $EventRecord = Get-WinEvent -LogName Security -FilterXPath $xPathQuery -MaxEvents 1
-        $XmlEvent = [xml] $EventRecord.ToXml()
-        return $XmlEvent.SelectSingleNode('//*[@Name="Status"]').InnerText -eq '0x0'
+        if ($EventRecord) {
+            $XmlEvent = [xml] $EventRecord.ToXml()
+            return $XmlEvent.SelectSingleNode('//*[@Name="Status"]').InnerText -eq '0x0'
+        } else {
+            Write-Warning 'No event found for password sync'
+            $false
+        }
     }
 }
